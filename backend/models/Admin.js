@@ -1,35 +1,20 @@
-// backend/models/Admin.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Admin = sequelize.define('Admin', {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  username: {          // you can use username or email or mobile (adjust as per your login strategy)
+  name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+    allowNull: false
   },
   email: {
     type: DataTypes.STRING,
-    allowNull: false,
     unique: true,
-  },
-  mobile: {
-    type: DataTypes.STRING,
-    unique: true,
-    allowNull: true,
+    allowNull: false
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-}, {
-  tableName: 'admin_users',
-  timestamps: false,
+    allowNull: false
+  }
 });
 
 module.exports = Admin;
