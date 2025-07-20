@@ -1,4 +1,6 @@
-const Product = require('../models/Product');
+// const Product = require('../models/Product');
+const { Product } = require('../models'); // ✅ Use destructuring
+
 
 // Add Product
 exports.addProduct = async (req, res) => {
@@ -76,6 +78,15 @@ exports.deleteProduct = async (req, res) => {
 
 
 // get all products
+// exports.getAllProducts = async (req, res) => {
+//   try {
+//     const products = await Product.findAll({ where: { status: true } });
+//     res.status(200).json(products);
+//   } catch (err) {
+//     res.status(500).json({ message: 'Failed to fetch products', error: err.message });
+//   }
+// };
+
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({ where: { status: true } });

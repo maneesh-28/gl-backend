@@ -7,7 +7,10 @@ require('dotenv').config();
 const adminRoutes = require('./routes/adminRoutes');
 const productRoutes = require('./routes/productRoutes');
 const customerRoutes = require('./routes/customerRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
+const db = require('./models');
 
 
 const app = express();
@@ -25,6 +28,9 @@ app.use('/api/products', productRoutes);
 // Serve static files from uploads folder
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/customers', customerRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+
 
 
 const PORT = process.env.PORT || 5000;
