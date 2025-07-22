@@ -1,29 +1,3 @@
-// const { DataTypes } = require('sequelize');
-// const sequelize = require('../config/db');
-
-// const Customer = sequelize.define('Customer', {
-//   name: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-//   email: {
-//     type: DataTypes.STRING,
-//     unique: true,
-//     allowNull: false,
-//   },
-//   phone: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-//   password: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-// });
-
-// module.exports = Customer;
-
-// models/Customer.js
 module.exports = (sequelize, DataTypes) => {
   const Customer = sequelize.define('Customer', {
     name: {
@@ -38,7 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    // profilePicture: {    
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // },
+    // address: {          
+    //   type: DataTypes.STRING,
+    //   allowNull: true
+    // }
     // Add any additional fields here
   });
 

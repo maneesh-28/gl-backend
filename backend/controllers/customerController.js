@@ -69,3 +69,40 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
+exports.getCustomerById = async (req, res) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id);
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    res.status(200).json(customer);
+  } catch (error) {
+    console.error('Get customer error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+
+exports.updateCustomerProfile = async (req, res) => {
+  try {
+    const customer = await Customer.findByPk(req.params.id);
+    if (!customer) {
+      return res.status(404).json({ message: 'Customer not found' });
+    }
+
+    const { name, email, phone } = req.body;
+    const profilePicture = req.file ? `/uploads/products/${req.file.filename}` : customer.profilePicture;
+
+    await customer.update({ name, email, phone, profilePicture });
+
+    res.status(200).json({ message: 'Profile updated successfully', customer });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
