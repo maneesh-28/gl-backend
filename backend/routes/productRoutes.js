@@ -6,7 +6,8 @@ const {
   addProduct,
   getAdminProducts,
   deleteProduct,
-  getAllProducts
+  getAllProducts,
+  getProductById 
 } = require('../controllers/productController');
 
 // POST - Add product
@@ -20,5 +21,8 @@ router.delete('/:id', verifyToken, deleteProduct);
 
 // fetch all product to shop
 router.get('/all', getAllProducts);
+
+// get by id
+router.get('/:id', getProductById);
 
 module.exports = router;

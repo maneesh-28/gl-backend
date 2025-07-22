@@ -1,6 +1,4 @@
-// const Product = require('../models/Product');
-const { Product } = require('../models'); // ✅ Use destructuring
-
+const { Product } = require('../models');
 
 // Add Product
 exports.addProduct = async (req, res) => {
@@ -19,7 +17,7 @@ exports.addProduct = async (req, res) => {
 
     const imageUrl = req.file ? req.file.filename : null;
 
-    const adminId = req.adminId; // ✅ Using from middleware
+    const adminId = req.adminId; // Using from middleware
 
     if (!adminId) {
       return res.status(401).json({ message: 'Unauthorized: Admin ID missing' });
@@ -49,7 +47,7 @@ exports.addProduct = async (req, res) => {
 // Get Products for Admin
 exports.getAdminProducts = async (req, res) => {
   try {
-    const adminId = req.adminId; // ✅ Consistent usage
+    const adminId = req.adminId; // Consistent usage
 
     const products = await Product.findAll({ where: { adminId } });
     res.status(200).json(products);
@@ -62,7 +60,7 @@ exports.getAdminProducts = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
   try {
     const productId = req.params.id;
-    const adminId = req.adminId; // ✅ Consistent usage
+    const adminId = req.adminId; // Consistent usage
 
     const product = await Product.findOne({ where: { id: productId, adminId } });
     if (!product) {
@@ -78,20 +76,24 @@ exports.deleteProduct = async (req, res) => {
 
 
 // get all products
-// exports.getAllProducts = async (req, res) => {
-//   try {
-//     const products = await Product.findAll({ where: { status: true } });
-//     res.status(200).json(products);
-//   } catch (err) {
-//     res.status(500).json({ message: 'Failed to fetch products', error: err.message });
-//   }
-// };
-
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.findAll({ where: { status: true } });
     res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ message: 'Failed to fetch products', error: err.message });
+  }
+};
+
+// GET product by ID
+exports.getProductById = async (req, res) => {
+  try {
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.json(product);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching product', error: err.message });
   }
 };
