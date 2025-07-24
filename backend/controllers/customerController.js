@@ -106,3 +106,30 @@ exports.updateCustomerProfile = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// exports.updateCustomer = async (req, res) => {
+//   const { cust_id } = req.params;
+//   const { fullName, phone, address, password } = req.body;
+//   const profilePicture = req.file ? req.file.filename : null;
+
+//   try {
+//     const customer = await Customer.findByPk(cust_id);
+//     if (!customer) return res.status(404).json({ message: 'Customer not found' });
+
+//     // Only update provided fields
+//     if (fullName) customer.fullName = fullName;
+//     if (phone) customer.phone = phone;
+//     if (address) customer.address = address;
+//     if (password) {
+//       const hashed = await bcrypt.hash(password, 10);
+//       customer.password = hashed;
+//     }
+//     if (profilePicture) customer.profilePicture = `/uploads/${profilePicture}`;
+
+//     await customer.save();
+//     res.status(200).json(customer);
+//   } catch (err) {
+//     console.error('Error updating customer:', err);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// };

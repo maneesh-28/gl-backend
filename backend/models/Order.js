@@ -9,12 +9,12 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     address: DataTypes.STRING,
     paymentMethod: DataTypes.STRING,
-    total: DataTypes.FLOAT
+    total: DataTypes.FLOAT,
   });
 
   Order.associate = (models) => {
-    Order.belongsTo(models.Customer, { foreignKey: 'customerId' });
-    Order.hasMany(models.OrderItem, { foreignKey: 'orderId' });
+    Order.belongsTo(models.Customer, { foreignKey: 'customerId' }); // ✅ OK
+    Order.hasMany(models.OrderItem, { foreignKey: 'orderId' });     // ✅ OK
   };
 
   return Order;
