@@ -88,24 +88,71 @@ exports.getCustomerById = async (req, res) => {
 
 
 
+// exports.updateCustomerProfile = async (req, res) => {
+//   try {
+//     const customer = await Customer.findByPk(req.params.id);
+//     if (!customer) {
+//       return res.status(404).json({ message: 'Customer not found' });
+//     }
+
+//     const { name, email, phone } = req.body;
+//     const profilePicture = req.file ? `/uploads/products/${req.file.filename}` : customer.profilePicture;
+
+//     await customer.update({ name, email, phone, profilePicture });
+
+//     res.status(200).json({ message: 'Profile updated successfully', customer });
+//   } catch (error) {
+//     console.error('Update profile error:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+// exports.updateCustomerProfile = async (req, res) => {
+//   try {
+//     const customer = await Customer.findByPk(req.params.id);
+//     if (!customer) {
+//       return res.status(404).json({ message: 'Customer not found' });
+//     }
+
+//     const { name, email, phone } = req.body;
+//     const profilePicture = req.file ? `/uploads/profiles/${req.file.filename}` : customer.profilePicture;
+
+//     await customer.update({ name, email, phone, profilePicture });
+
+//     res.status(200).json({
+//       message: 'Profile updated successfully',
+//       customer
+//     });
+//   } catch (error) {
+//     console.error('Update profile error:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+
+
 exports.updateCustomerProfile = async (req, res) => {
   try {
     const customer = await Customer.findByPk(req.params.id);
-    if (!customer) {
-      return res.status(404).json({ message: 'Customer not found' });
+    if (!customer) return res.status(404).json({ message: "Customer not found" });
+
+    const { fullName, password, phone, address } = req.body;
+    if (req.file) {
+      customer.profilePicture = req.file.filename;
     }
 
-    const { name, email, phone } = req.body;
-    const profilePicture = req.file ? `/uploads/products/${req.file.filename}` : customer.profilePicture;
+    customer.fullName = fullName;
+    customer.password = password;
+    customer.phone = phone;
+    customer.address = address;
 
-    await customer.update({ name, email, phone, profilePicture });
-
-    res.status(200).json({ message: 'Profile updated successfully', customer });
-  } catch (error) {
-    console.error('Update profile error:', error);
-    res.status(500).json({ message: 'Server error' });
+    await customer.save();
+    res.json({ message: 'Profile updated successfully', customer });
+  } catch (err) {
+    console.error("Update profile error:", err);
+    res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // exports.updateCustomer = async (req, res) => {
 //   const { cust_id } = req.params;

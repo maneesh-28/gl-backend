@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const customerController = require('../controllers/customerController');
 const upload = require('../middleware/uploadMiddleware');
-
+const uploadProfile = require('../middleware/uploadMiddlewareProfile');
 
 // POST - Register/Login
 router.post('/register', customerController.register);
@@ -19,6 +19,7 @@ router.put('/:id', upload.single('profilePicture'), customerController.updateCus
 
 // Update customer profile (with file upload)
 // router.put('/update/:cust_id', upload.single('profilePicture'), customerController.updateCustomer);
+router.put('/:id', uploadProfile.single('profilePicture'), customerController.updateCustomerProfile);
 
 
 module.exports = router;

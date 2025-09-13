@@ -22,6 +22,18 @@ module.exports = (sequelize, DataTypes) => {
     //   allowNull: true
     // }
     // Add any additional fields here
+     profilePicture: {    
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    address: {          
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    phoneno: {
+      type:  DataTypes.STRING,
+      allowNull: true
+    }
   });
 
   Customer.associate = (models) => {
